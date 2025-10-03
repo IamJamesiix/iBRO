@@ -1,19 +1,27 @@
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+
+
 const config ={
-    PORT: 4080,
 
-    MONGO_URI: 'mongodb+srv://Jmx:uxeou2eb0bu5rlzX@jmxcluster.kvk30fd.mongodb.net/Ibro?retryWrites=true&w=majority&appName=JmxCluster',
-    
-    JWT_SECRET:'TOCtl7G80BAylNIjoLIieZazXJeeIRh4GWF1qziaAJ8=',
-    JWT_EXPIRES_IN:"14d",
+ PORT: process.env.PORT,
+ MONGO_URI: process.env.MONGO_URI,
 
+ JWT_SECRET: process.env.JWT_SECRET,
+ JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
+ SMTP_USER: process.env.SMTP_USER,
 
-    SMTP_USER:'preciousjamie001@gmail.com',
-    SMTP_PASSWORD:'gikejpnilwvnqexs',
-    NODE_ENV:"development",
+ NODE_ENV: process.env.NODE_ENV,
+ CLIENT_URL: process.env.CLIENT_URL,
 
-    CLIENT_URL:'https://ibro-1.onrender.com',
+ SENDGRID_API_KEY: process.env.SENDGRID_API_KEY
 
 
 }
-
-export default config 
+export default config
