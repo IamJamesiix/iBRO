@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://ibro.onrender.com', // Change this to your backend URL
-  withCredentials: true, // Important for cookies (JWT)
+  baseURL: 'https://ibro.onrender.com/ibro',
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
