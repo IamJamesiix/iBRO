@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:4080/ibro', // Change this to your backend URL
+  baseURL: 'https://ibro.onrender.com', // Change this to your backend URL
   withCredentials: true, // Important for cookies (JWT)
   headers: {
     'Content-Type': 'application/json',

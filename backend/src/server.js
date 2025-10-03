@@ -15,7 +15,11 @@ const Port = config.PORT || process.env.PORT || 4080
 
 app.use(express.json())
 app.use(cors({
-  origin: config.CLIENT_URL, // Vite's default port
+  origin: [
+    'http://localhost:5173',
+    'https://ibro-1.onrender.com',
+    process.env.CLIENT_URL
+  ].filter(Boolean),
   credentials: true
 }));
 app.use(cookieParser())
