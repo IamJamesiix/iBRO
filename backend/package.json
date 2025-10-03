@@ -1,5 +1,12 @@
 {
+  "name": "ibro-backend",
+  "version": "1.0.0",
   "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "build": "echo 'No build required'"
+  },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
