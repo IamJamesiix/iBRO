@@ -11,7 +11,7 @@ const config ={
     SMTP_PASSWORD:'gikejpnilwvnqexs',
     NODE_ENV:"development",
 
-    CLIENT_URL:'http://localhost:5173',
+    CLIENT_URL:'https://ibro-1.onrender.com',
 
 
 }
