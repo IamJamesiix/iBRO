@@ -2,10 +2,10 @@ import nodemailer from "nodemailer"
 import config from "./env.js";
 
 export const sender = nodemailer.createTransport({
-//   host: "smtp.gmail.com",
-//   port: 587,
-//   secure: false, // true for 465, false for other ports
- service: 'smtp.gmail.com',  
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // true for 465, false for other ports
+//  service: 'smtp.gmail.com',  
 auth: {
     user: config.SMTP_USER,
     pass: config.SMTP_PASSWORD,
