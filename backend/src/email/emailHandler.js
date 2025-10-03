@@ -1,23 +1,24 @@
-import { sender } from "../libs/nodemailer.js";
+import { sender } from "../libs/sendgrid.js"
 import { createWelcomeEmailTemplate } from "./emailTemplate.js";
 import User from "../models/User.js";
 import config from "../libs/env.js";
 
-export const sendWelcomeEmail = async ( email, userName, clientURL ) => {
-    console.log('📧 Sending email to:', email);
-    console.log('👤 Name:', userName);
-    console.log('🔗 Client URL:', clientURL);
+export const sendWelcomeEmail = async (email, userName, clientURL) => {
+  console.log('📧 Sending email to:', email);
+  console.log('👤 Name:', userName);
+  console.log('🔗 Client URL:', clientURL);
 
-    if (!email) {
+  if (!email) {
     throw new Error('Email is required');
   }
 
-  const info = await sender.sendMail({
-    from: '"IBRO" <ibroverify@gmail.com>',
+  // Changed from sendMail to send
+  const [response] = await sender.send({
+    from: 'ibroverify@gmail.com', // Remove the name part for now
     to: email,
     subject: "Welcome to iBRO",
-    html: createWelcomeEmailTemplate( userName, clientURL), // HTML body
+    html: createWelcomeEmailTemplate(userName, clientURL),
   });
 
-  console.log("Message sent:", info.messageId);
+  console.log("Message sent:", response.statusCode);
 };
