@@ -21,6 +21,8 @@ app.use(cors({
 app.use(cookieParser())
 app.use(express.urlencoded({limit: '50mb', extended: false}))
 
+console.log(`this the node_env: ${process.env.CLIENT_URL}`);
+
 
 app.get('/', (req, res) => {
     res.send("app is running")
