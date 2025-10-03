@@ -1,0 +1,4 @@
+.env
+../src/libs/env.js
+env.js
+random.txt
