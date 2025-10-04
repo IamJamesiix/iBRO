@@ -15,7 +15,7 @@ const { JWT_SECRET, NODE_ENV } = config
      res.cookie("jwt", token, {
         maxAge: 10*24*60*60*1000,
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none",
         secure: NODE_ENV === "development" ? false : true,
     });
 
