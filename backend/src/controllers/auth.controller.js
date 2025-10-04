@@ -37,6 +37,8 @@ export const signup = async (req, res) => {
 
         if (newUser){
             const savedUser = await newUser.save()
+            console.log('💾 User saved to database:', mongoose.connection.name);
+            console.log('💾 User ID:', savedUser._id);
             generateToken(savedUser._id, res)
 
             res.status(201).json({
