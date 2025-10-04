@@ -28,7 +28,11 @@ const Dashboard = () => {
     if (!user?._id) return;
     try {
       const { data } = await api.get(`/session/user/${user._id}`);
+      console.log('All sessions:', data); 
+
       const active = data.find(s => s.status !== 'finished');
+      console.log('Active session found:', active);
+      
       if (active) {
         setActiveSession(active);
       }
