@@ -17,6 +17,8 @@ export const protectRoute = async (req, res, next) => {
 
         const user = await User.findById(decoded.userId).select("-password")
         console.log('👤 Found user:', user?._id)
+        console.log('🔍 Searching for userId:', decoded.userId);
+        console.log('🗄️ Database name:', mongoose.connection.name)
         if(!user)return res.status(401).json({message: "user not found"})
 
 
