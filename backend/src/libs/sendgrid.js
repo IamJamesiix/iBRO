@@ -3,15 +3,19 @@ import config from "./env.js";
 
 sgMail.setApiKey(config.SENDGRID_API_KEY);
 
-// Verify setup (optional)
-sgMail
-  .send({
-    to: config.SMTP_USER, // Send test to yourself
-    from: config.SMTP_USER, // Must be verified in SendGrid
-    subject: "SendGrid Test",
-    text: "If you receive this, SendGrid is configured correctly!",
-  })
-  .then(() => console.log('✅ SendGrid is ready to send emails'))
-  .catch((error) => console.log('❌ SendGrid Error:', error.message));
+
+export const sendWelcomeEmail = async (email, userName) => {
+  try {
+    await sgMail.send({
+      to: email,            // ← User's email from registration
+      from: config.SMTP_USER.trim(),       // Your verified sender
+      subject: "Welcome!",
+      text: `Welcome ${userName}! Thanks for signing up.`,
+    });
+    console.log('✅ Welcome email sent');
+  } catch (error) {
+    console.log('❌ Email Error:', error.response?.body?.errors);
+  }
+};
 
 export const sender = sgMail;

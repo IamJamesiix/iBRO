@@ -36,7 +36,7 @@ export const signup = async (req, res) => {
         })
 
         if (newUser){
-            const savedUser = newUser.save()
+            const savedUser = await newUser.save()
             generateToken(savedUser._id, res)
 
             res.status(201).json({
@@ -49,7 +49,14 @@ export const signup = async (req, res) => {
         try {
             await sendWelcomeEmail( (await savedUser).email, (await savedUser).userName, config.CLIENT_URL)
         } catch (error) {
-            console.log("failed to send welcome email:", error);
+            console.log("From email length:", config.SMTP_USER.length); // Should be 27
+            console.log("From email (with quotes):", `"${config.SMTP_USER}"`); // Look for spaces
+            console.log("Trimmed:", config.SMTP_USER.trim()); // Remove any spaces
+            console.log("SMTP_USER value:", config.SMTP_USER);
+            console.log("❌ Failed to send welcome email");
+            console.log("Status Code:", error.code);
+            console.log("Error Array:", error.response?.body?.errors);
+            console.log("Full Body:", error.response?.body);
         }
         }else{
             return res.status(400).json("invalid user data")

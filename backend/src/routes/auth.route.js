@@ -11,7 +11,7 @@ router.post('/login', login)
 
 router.post('/logout', logout)
 
-router.post('/delete', protectRoute, deleteit)
+router.delete('/delete', protectRoute, deleteit)
 
 
 export default router

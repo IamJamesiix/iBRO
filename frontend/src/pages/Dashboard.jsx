@@ -95,7 +95,7 @@ const Dashboard = () => {
 
     try {
       await deleteAccount();
-      window.location.href = '/login';
+      window.location.href = '/';
     } catch (error) {
       console.error('Failed to delete account:', error);
     }

@@ -14,7 +14,7 @@ export const sendWelcomeEmail = async (email, userName, clientURL) => {
 
   // Changed from sendMail to send
   const [response] = await sender.send({
-    from: 'ibroverify@gmail.com', // Remove the name part for now
+    from: config.SMTP_USER.trim(),
     to: email,
     subject: "Welcome to iBRO",
     html: createWelcomeEmailTemplate(userName, clientURL),

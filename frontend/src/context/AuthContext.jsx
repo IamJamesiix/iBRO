@@ -25,6 +25,8 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const signup = async (userData) => {
+    console.log('Signup called with:', userData); 
+     console.log('API baseURL:', api.defaults.baseURL);
     try {
       const { data } = await api.post('/auth/signup', userData);
       setUser(data);
@@ -65,10 +67,14 @@ const AuthProvider = ({ children }) => {
 
   const deleteAccount = async () => {
     try {
-      await api.post('/auth/delete');
+      console.log('🔄 Attempting delete...');
+      console.log('Delete URL:', '/auth/delete');
+      const response = await api.delete('/auth/delete');
+      console.log('✅ Delete response:', response);
       setUser(null);
       localStorage.removeItem('user');
       toast.success('Account deleted successfully');
+      return true;
     } catch (error) {
       toast.error('Failed to delete account');
       throw error;
