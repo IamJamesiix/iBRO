@@ -16,7 +16,7 @@ export const generateToken = (userId, res) => {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        domain: ".onrender.com",
+        
     };
 
     console.log('🍪 Setting cookie with options:', cookieOptions); // Now this works
