@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken"
 import config from "../libs/env.js"
 import User from "../models/User.js"
+import mongoose from "mongoose"
 
 
 export const protectRoute = async (req, res, next) => {
