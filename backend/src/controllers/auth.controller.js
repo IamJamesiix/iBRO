@@ -4,6 +4,7 @@ import bcrypt, { hash } from "bcrypt"
 import User from "../models/User.js"
 import { sendWelcomeEmail } from "../email/emailHandler.js";
 import { generateToken } from "../libs/utils.js";
+import mongoose from "mongoose";
 
 
 

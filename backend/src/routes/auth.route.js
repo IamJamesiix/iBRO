@@ -1,6 +1,7 @@
 import express from 'express'
 import { signup, login, logout, deleteit } from "../controllers/auth.controller.js"
 import { protectRoute } from '../middlewares/auth.middleware.js'
+import mongoose from 'mongoose'
 
 
 const router = express.Router()
