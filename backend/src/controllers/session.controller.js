@@ -180,3 +180,55 @@ export const getUserSessions = async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 }
+
+export const getWeeklyStats = async (req, res) => {
+  const { userId } = req.params;
+  
+  // Calculate start of current week (Monday)
+  const now = new Date();
+  const dayOfWeek = now.getDay();
+  const startOfWeek = new Date(now);
+  startOfWeek.setDate(now.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
+  startOfWeek.setHours(0, 0, 0, 0);
+  
+  try {
+    const sessions = await Session.find({
+      userId,
+      clockInTime: { $gte: startOfWeek }
+    }).sort({ clockInTime: 1 });
+    
+    // Calculate stats
+    const totalSessions = sessions.length;
+    const completedSessions = sessions.filter(s => s.status === 'finished').length;
+    
+    let totalWorkedMillis = 0;
+    let perfectCount = 0;
+    let overachieverCount = 0;
+    
+    sessions.forEach(session => {
+      if (session.clockOutTime) {
+        totalWorkedMillis += (session.clockOutTime - session.clockInTime) - session.totalBreakMillis;
+      }
+      if (session.achievement === 'perfect') perfectCount++;
+      if (session.achievement === 'overachiever') overachieverCount++;
+    });
+    
+    const totalHours = (totalWorkedMillis / (1000 * 60 * 60)).toFixed(2);
+    const avgSessionLength = completedSessions > 0 
+      ? (totalWorkedMillis / completedSessions / (1000 * 60 * 60)).toFixed(2) 
+      : 0;
+    
+    res.json({
+      totalSessions,
+      completedSessions,
+      totalHours,
+      avgSessionLength,
+      perfectCount,
+      overachieverCount,
+      sessions
+    });
+  } catch (error) {
+    console.log("Error in getWeeklyStats:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+}

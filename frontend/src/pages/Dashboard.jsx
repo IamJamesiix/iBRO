@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 import ActiveSession from '../components/ActiveSession';
 import SessionCard from '../components/SessionCard';
 import { FiPlay, FiTrash2 } from 'react-icons/fi';
+import WeeklyOverview from '../components/WeeklyOverview';
+
 
 const Dashboard = () => {
   const { user, deleteAccount } = useAuth();
@@ -117,6 +119,9 @@ const Dashboard = () => {
             Track your work sessions and stay accountable
           </p>
         </div>
+        
+        {/* Weekly Overview */}
+          {user?._id && <WeeklyOverview userId={user._id} />}
 
         {/* Active Session or Start Button */}
         {activeSession ? (

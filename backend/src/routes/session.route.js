@@ -1,5 +1,5 @@
 import express from 'express'
-import {clockin, breakin, progress, resumein, clockout, deleteit, getUserSessions } from "../controllers/session.controller.js"
+import {clockin, breakin, progress, resumein, clockout, deleteit, getUserSessions, getWeeklyStats } from "../controllers/session.controller.js"
 
 
 const router = express.Router()
@@ -17,6 +17,8 @@ router.post('/clockout', clockout)
 router.delete('/:id', deleteit )
 
 router.get('/user/:userId', getUserSessions)
+
+router.get('/weekly/:userId', getWeeklyStats)
 
 
 export default router
