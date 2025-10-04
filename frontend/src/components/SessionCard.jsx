@@ -103,6 +103,21 @@ const SessionCard = ({ session, onDelete, onResume }) => {
           </div>
         )}
 
+        {session.achievement && session.achievement !== 'none' && (
+          <div className="flex items-center space-x-2 mt-2">
+            {session.achievement === 'perfect' && (
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400">
+                ⭐ Perfect Score
+                  </span>
+                  )}
+                  {session.achievement === 'overachiever' && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400">
+                🏆 Overachiever
+              </span>
+            )}
+          </div>
+        )}
+        
         <span
           className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
             session.status === 'finished'

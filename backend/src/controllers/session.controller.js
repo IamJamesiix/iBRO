@@ -95,7 +95,7 @@ export const resumein = async (req, res) => {
 export const clockout = async (req, res) => {
     const { sessionId } = req.body
     const session = await Session.findById(sessionId)
-    if(!session || session.status == "Finished")return res.status(400).json({ error:  "Already finished or invalid" })
+    if(!session || session.status == "finished") return res.status(400).json({ error: "Already finished or invalid" })
 
     session.clockOutTime = new Date()
     session.status = "finished"
@@ -105,25 +105,39 @@ export const clockout = async (req, res) => {
     const minutesWorked = workedMillis / (1000 * 60);
     const secondsWorked = workedMillis / (1000);
     let progressPercent = null
+    let achievement = 'none'
         
     const response = {
             session,
             hoursWorked: hoursWorked.toFixed(2),
             minutesWorked: minutesWorked.toFixed(2),
             secondsWorked: secondsWorked.toFixed(2),
-            progressPercent
+            progressPercent,
+            achievement: 'none'
     }
 
     if (session.targetHours) {
+        const exactProgress = (hoursWorked / session.targetHours) * 100;
         response.targetHours = session.targetHours;
-        response.progressPercent = ((hoursWorked / session.targetHours) * 100).toFixed(2);
+        response.progressPercent = exactProgress.toFixed(2);
+
+        // Determine achievement based on progress
+        if (exactProgress >= 99.5 && exactProgress <= 100.5) {
+            // Perfect! Hit the target exactly (within 0.5% tolerance)
+            achievement = 'perfect';
+        } else if (exactProgress > 100.5) {
+            // Overachiever! Exceeded the target
+            achievement = 'overachiever';
+        }
+
+        // Save achievement to session
+        session.achievement = achievement;
+        session.achievementTime = new Date();
+        response.achievement = achievement;
     }
-        
 
     await session.save()
-        res.json(response);
-        
-
+    res.json(response);
 }
 
 export const deleteit = async (req, res) => {

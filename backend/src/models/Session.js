@@ -33,6 +33,16 @@ const sessionSchema = new mongoose.Schema({
     enum: ["working", "onBreak", "finished"], 
     default: "working" 
     },
+
+    achievement: {
+        type: String,
+        enum: ['none', 'perfect', 'overachiever'],
+        default: 'none'
+    },
+    achievementTime: {
+        type: Date,
+        default: null
+    }
     
 })
 
