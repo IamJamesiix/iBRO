@@ -47,7 +47,7 @@ const ActiveSession = ({ session, onSessionEnd, onSessionUpdate }) => {
         // Auto-pause and show modal when target is reached (only once)
         if (
           data.targetHours && 
-          data.progressPercent >= 100 && 
+          parseFloat(data.progressPercent) >= 99.5 && 
           !hasShownModal && 
           !autoPauseTriggered.current &&
           currentSession.status === 'working'
